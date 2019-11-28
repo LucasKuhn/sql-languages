@@ -1,25 +1,26 @@
+# Gem para conectar com banco postgres
 require 'pg'
 
-# Conectar no banco
+# Conecta no banco
 connection = PG.connect(host:'localhost', dbname:'formula1', user:'postgres', password:'')
 
 
 # Método para pegar um input de multiplas linhas
 def get_multi_line_input
-  multi_line = ''
+  result = ''
   line = nil
   while line != ''
     line = gets.chomp
-    multi_line.concat(" ", line)
+    result.concat(" ", line)
   end
-  return multi_line
+  return result
 end
 
-# Pegar o input com linhas múltiplas até chegar uma linha em branco
+# Pede input para o usuário
 puts 'Escreva um comando SQL para ser executado via Ruby:'
 query = get_multi_line_input()
 
-# Executar a query
+# Executa a query
 results = connection.exec(query)
 
 # Mostrar o resultado
