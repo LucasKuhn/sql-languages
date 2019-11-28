@@ -16,17 +16,19 @@ def get_multi_line_input
   return result
 end
 
-# Pede input para o usuário
-puts 'Escreva um comando SQL para ser executado via Ruby:'
-query = get_multi_line_input()
+loop do
+  # Pede input para o usuário
+  puts 'Escreva um comando SQL para ser executado via Ruby:'
+  query = get_multi_line_input()
 
-# Executa a query
-results = connection.exec(query)
+  # Executa a query
+  results = connection.exec(query)
 
-# Mostrar o resultado
-puts results.cmd_status
+  # Mostrar o resultado
+  puts results.cmd_status
 
-# Mostras as rows retornadas
-results.each_row do |row|
-  puts row.join(", ")
-end
+  # Mostras as rows retornadas
+  results.each_row do |row|
+    puts row.join(", ")
+  end
+end 

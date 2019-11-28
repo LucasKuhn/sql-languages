@@ -15,17 +15,18 @@ def get_multi_line_input():
         result += ' ' + line
     return result
 
-# Pede input para o usuário
-print("Escreva um comando SQL para ser executado via Python:")
-query = get_multi_line_input()
+while True:
+    # Pede input para o usuário
+    print("Escreva um comando SQL para ser executado via Python:")
+    query = get_multi_line_input()
 
-# Executa a query
-execute = cursor.execute(query)
+    # Executa a query
+    execute = cursor.execute(query)
 
-# Mostrar o resultado
-print (cursor.statusmessage)
+    # Mostrar o resultado
+    print (cursor.statusmessage)
 
-# Mostras as rows retornadas
-if cursor.description != None and cursor.rowcount > 0:
-    results = cursor.fetchall()
-    for row in results: print(row)
+    # Mostras as rows retornadas
+    if cursor.description != None and cursor.rowcount > 0:
+        results = cursor.fetchall()
+        for row in results: print(row)

@@ -31,28 +31,31 @@ func main() {
   if err != nil { panic(err) }
   defer db.Close()
 
-  // Pede input para o usuário
-  fmt.Println("Escreva um comando SQL para ser executado via GoLang:")
-  query := get_multi_line_input()
+   for {
+    // Pede input para o usuário
+    fmt.Println("Escreva um comando SQL para ser executado via GoLang:")
+    query := get_multi_line_input()
 
-  // Executa a query
-  rows, err := db.Query(query)
-  if err    != nil { panic(err) }
+    // Executa a query
+    rows, err := db.Query(query)
+    if err    != nil { panic(err) }
 
-  // Mostra as rows retornadas
-  cols, _ := rows.Columns()
-  data    := make(map[string]string)
-  for rows.Next() {
-    columns := make([]string, len(cols))
-    columnPointers := make([]interface{}, len(cols))
-    for i, _ := range columns {
-      columnPointers[i] = &columns[i]
+    // Mostra as rows retornadas
+    cols, _ := rows.Columns()
+    data    := make(map[string]string)
+    for rows.Next() {
+      columns := make([]string, len(cols))
+      columnPointers := make([]interface{}, len(cols))
+      for i, _ := range columns {
+        columnPointers[i] = &columns[i]
+      }
+      rows.Scan(columnPointers...)
+      for i, colName := range cols {
+        data[colName] = columns[i]
+      }
+      fmt.Println(data)
     }
-    rows.Scan(columnPointers...)
-    for i, colName := range cols {
-      data[colName] = columns[i]
-    }
-    fmt.Println(data)
+    fmt.Println("OK")
   }
-  fmt.Println("OK")
+  
 }
